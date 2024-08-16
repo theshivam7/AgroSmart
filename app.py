@@ -88,7 +88,6 @@ def main():
             <div class="footer-right">
                 <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none; margin-right: 15px;">LinkedIn</a>
                 <a href="https://github.com/theshivam7" style="color: white; text-decoration: none; margin-right: 15px;">GitHub</a>
-
             </div>
         </div>
         <div class="footer-disclaimer">
