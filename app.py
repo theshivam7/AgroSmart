@@ -83,7 +83,7 @@ def main():
                 &copy; 2024 AgroSmart India
             </div>
             <div class="footer-center">
-                Made by ❤️ by <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none;">Shivam 🍁</a>
+                Made with ❤️ by <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none;">Shivam 🍁</a>
             </div>
             <div class="footer-right">
                 <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none; margin-right: 15px;">LinkedIn</a>
