@@ -96,7 +96,6 @@ def main():
     </footer>
 """, unsafe_allow_html=True)
 
-
 def call_openai(messages):
     try:
         response = client.chat.completions.create(
@@ -118,11 +117,14 @@ def diagnose_crop():
             st.image(image, caption="Uploaded Image", use_column_width=True)
             st.write("Analyzing...")
             
+            # Resize the image
+            max_size = (800, 800)  # You can adjust this size
+            image.thumbnail(max_size, Image.LANCZOS)
+            
             img_byte_arr = io.BytesIO()
-            image.save(img_byte_arr, format='PNG')
+            image.save(img_byte_arr, format='JPEG', quality=85)  # Use JPEG format with slightly reduced quality
             img_byte_arr = img_byte_arr.getvalue()
             img_base64 = base64.b64encode(img_byte_arr).decode('utf-8')
-            img_base64 += '=' * (-len(img_base64) % 4)
 
             messages = [
                 {"role": "system", "content": "You are an expert in diagnosing crop diseases in India. Provide detailed diagnoses and solutions suitable for Indian agriculture."},
