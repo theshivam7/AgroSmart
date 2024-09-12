@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import os
 from openai import OpenAI
 from streamlit_option_menu import option_menu
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,30 +21,49 @@ def main():
     <style>
     .main-header {
         font-size: 2.5rem;
-        color: #4CAF50;
+        color: #1B5E20;
         text-align: center;
-        margin-bottom: 2rem;
-    }
-    .feature-container {
-        background-color: #f0f8ff;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        font-weight: bold;
     }
     .feature-header {
-        color: #2E8B57;
+        color: #2E7D32;
         font-size: 1.8rem;
         margin-bottom: 1rem;
+        border-bottom: 2px solid #4CAF50;
+        padding-bottom: 0.5rem;
+        font-weight: bold;
     }
-    .stButton>button {
+    .stButton > button {
         background-color: #4CAF50;
         color: white;
         font-weight: bold;
         border-radius: 5px;
         padding: 0.5rem 1rem;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
     }
-    .stSelectbox {
-        margin-bottom: 1rem;
+    .stButton > button:hover {
+        background-color: #45a049;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .stSelectbox > div > div > div {
+        background-color: #E8F5E9;
+        border-radius: 5px;
+        border: 1px solid #81C784;
+    }
+    .stTextInput > div > div > input {
+        border-radius: 5px;
+        border: 1px solid #81C784;
+        background-color: #E8F5E9;
+    }
+    .stTextInput > div > div > input:focus {
+        box-shadow: 0 0 0 2px #4CAF50;
+    }
+    .stSlider > div > div > div > div {
+        background-color: #4CAF50;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -59,14 +79,19 @@ def main():
         default_index=0,
         orientation="horizontal",
         styles={
-            "container": {"padding": "0!important", "background-color": "#fafafa"},
-            "icon": {"color": "green", "font-size": "18px"}, 
-            "nav-link": {"font-size": "16px", "text-align": "center", "margin":"0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "#4CAF50"},
+            "container": {"padding": "0!important", "background-color": "#E8F5E9"},
+            "icon": {"color": "#2E7D32", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px",
+                "text-align": "center",
+                "margin": "0px",
+                "--hover-color": "#C8E6C9",
+                "color": "#1B5E20",
+                "font-weight": "bold",
+            },
+            "nav-link-selected": {"background-color": "#4CAF50", "color": "white"},
         }
     )
-    
-    st.markdown("<div class='feature-container'>", unsafe_allow_html=True)
     
     if selected == "Diagnose Crop":
         diagnose_crop()
@@ -80,66 +105,35 @@ def main():
         best_deals()
     elif selected == "Sell Produce":
         sell_produce()
-    
-    st.markdown("</div>", unsafe_allow_html=True)
 
-    # Footer with links
+    # Footer
     st.markdown("""
     <style>
-    footer {
+    .footer {
         position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-color: #4CAF50;
+        background-color: #1B5E20;
         color: white;
         text-align: center;
         padding: 10px;
         font-size: 14px;
     }
-    .footer-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
+    .footer a {
+        color: #E8F5E9;
+        text-decoration: none;
     }
-    .footer-left {
-        text-align: left;
-        flex: 1;
-    }
-    .footer-center {
-        text-align: center;
-        flex: 1;
-    }
-    .footer-right {
-        text-align: right;
-        flex: 1;
-    }
-    .footer-disclaimer {
-        text-align: center;
-        font-size: 10px;
-        margin-top: 5px;
-        color: lightgrey;
+    .footer a:hover {
+        text-decoration: underline;
     }
     </style>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-left">
-                &copy; 2024 AgroSmart India
-            </div>
-            <div class="footer-center">
-                Made with ❤️ by <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none;">Shivam 🍁</a>
-            </div>
-            <div class="footer-right">
-                <a href="https://www.linkedin.com/in/theshivam7/" style="color: white; text-decoration: none; margin-right: 15px;">LinkedIn</a>
-                <a href="https://github.com/theshivam7" style="color: white; text-decoration: none; margin-right: 15px;">GitHub</a>
-            </div>
-        </div>
-        <div class="footer-disclaimer">
-            AgroSmart can make mistakes. Check important info.
-        </div>
-    </footer>
-""", unsafe_allow_html=True)
+    <div class='footer'>
+        <p>© 2024 AgroSmart India | Made with ❤️ by <a href="https://www.linkedin.com/in/theshivam7/">Shivam 🍁</a> | 
+        <a href="https://www.linkedin.com/in/theshivam7/">LinkedIn</a> | 
+        <a href="https://github.com/theshivam7">GitHub</a></p>
+    </div>
+    """, unsafe_allow_html=True)
 
 def call_openai(messages):
     try:
@@ -154,32 +148,40 @@ def call_openai(messages):
 
 def diagnose_crop():
     st.markdown("<h2 class='feature-header'>Diagnose Your Sick Crop</h2>", unsafe_allow_html=True)
+    
+    with st.expander("How to use this feature"):
+        st.info("Upload a clear image of your crop showing the affected areas. Our AI will analyze the image and provide a diagnosis along with treatment recommendations.")
+    
     uploaded_file = st.file_uploader("Upload an image of your crop", type=["jpg", "png", "jpeg"])
     
     if uploaded_file is not None:
         try:
             image = Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", use_column_width=True)
-            st.write("Analyzing...")
             
-            # Resize the image
-            max_size = (800, 800)  # You can adjust this size
-            image.thumbnail(max_size, Image.LANCZOS)
-            
-            # Convert image to RGB if it's in RGBA mode
-            if image.mode == 'RGBA':
-                image = image.convert('RGB')
-            
-            img_byte_arr = io.BytesIO()
-            image.save(img_byte_arr, format='JPEG', quality=85)  # Use JPEG format with slightly reduced quality
-            img_byte_arr = img_byte_arr.getvalue()
-            img_base64 = base64.b64encode(img_byte_arr).decode('utf-8')
+            with st.spinner("Analyzing your crop..."):
+                # Simulate a delay for demonstration purposes
+                time.sleep(2)
+                
+                # Resize the image
+                max_size = (800, 800)  # You can adjust this size
+                image.thumbnail(max_size, Image.LANCZOS)
+                
+                # Convert image to RGB if it's in RGBA mode
+                if image.mode == 'RGBA':
+                    image = image.convert('RGB')
+                
+                img_byte_arr = io.BytesIO()
+                image.save(img_byte_arr, format='JPEG', quality=85)  # Use JPEG format with slightly reduced quality
+                img_byte_arr = img_byte_arr.getvalue()
+                img_base64 = base64.b64encode(img_byte_arr).decode('utf-8')
 
-            messages = [
-                {"role": "system", "content": "You are an expert in diagnosing crop diseases in India. Provide detailed diagnoses and solutions suitable for Indian agriculture."},
-                {"role": "user", "content": f"Diagnose any issues with this crop and provide detailed solutions suitable for Indian farming conditions. Include common names of diseases in Hindi if applicable. [IMAGE]{img_base64}[/IMAGE]"}
-            ]
-            response = call_openai(messages)
+                messages = [
+                    {"role": "system", "content": "You are an expert in diagnosing crop diseases in India. Provide detailed diagnoses and solutions suitable for Indian agriculture."},
+                    {"role": "user", "content": f"Diagnose any issues with this crop and provide detailed solutions suitable for Indian farming conditions. Include common names of diseases in Hindi if applicable. [IMAGE]{img_base64}[/IMAGE]"}
+                ]
+                response = call_openai(messages)
+            st.success("Analysis complete!")
             st.write(response)
         except Exception as e:
             st.error(f"An error occurred while processing the image: {str(e)}")
