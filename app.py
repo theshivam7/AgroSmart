@@ -121,6 +121,10 @@ def diagnose_crop():
             max_size = (800, 800)  # You can adjust this size
             image.thumbnail(max_size, Image.LANCZOS)
             
+            # Convert image to RGB if it's in RGBA mode
+            if image.mode == 'RGBA':
+                image = image.convert('RGB')
+            
             img_byte_arr = io.BytesIO()
             image.save(img_byte_arr, format='JPEG', quality=85)  # Use JPEG format with slightly reduced quality
             img_byte_arr = img_byte_arr.getvalue()
