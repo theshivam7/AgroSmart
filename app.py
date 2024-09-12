@@ -5,6 +5,7 @@ import base64
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
+from streamlit_option_menu import option_menu
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,29 +15,73 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key, base_url="https://api.perplexity.ai")
 
 def main():
-    st.title("AgroSmart: Your Free Crop Diagnosis and Treatment App")
-    st.markdown("<h1 style='text-align: center; color: #4CAF50;'>Welcome to AgroSmart India</h1>", unsafe_allow_html=True)
+    # Custom CSS for better styling
+    st.markdown("""
+    <style>
+    .main-header {
+        font-size: 2.5rem;
+        color: #4CAF50;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .feature-container {
+        background-color: #f0f8ff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .feature-header {
+        color: #2E8B57;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+    }
+    .stSelectbox {
+        margin-bottom: 1rem;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    st.sidebar.title("Features")
-    st.sidebar.header("Explore Our Features")
-    feature = st.sidebar.radio(
-        "Choose a feature:",
-        ("Diagnose Your Sick Crop", "Find the Right Treatment", "Expert Advice",
-         "Maximize Your Crop Yields", "Best Product Deals", "Sell at Your Price")
+    st.markdown("<h1 class='main-header'>AgroSmart: Your Free Crop Diagnosis and Treatment App</h1>", unsafe_allow_html=True)
+
+    # Horizontal menu
+    selected = option_menu(
+        menu_title=None,
+        options=["Diagnose Crop", "Find Treatment", "Expert Advice", "Maximize Yields", "Best Deals", "Sell Produce"],
+        icons=["plant", "bandaid", "chat-square-text", "graph-up", "cart", "cash-coin"],
+        menu_icon="cast",
+        default_index=0,
+        orientation="horizontal",
+        styles={
+            "container": {"padding": "0!important", "background-color": "#fafafa"},
+            "icon": {"color": "green", "font-size": "18px"}, 
+            "nav-link": {"font-size": "16px", "text-align": "center", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "#4CAF50"},
+        }
     )
     
-    if feature == "Diagnose Your Sick Crop":
+    st.markdown("<div class='feature-container'>", unsafe_allow_html=True)
+    
+    if selected == "Diagnose Crop":
         diagnose_crop()
-    elif feature == "Find the Right Treatment":
+    elif selected == "Find Treatment":
         find_treatment()
-    elif feature == "Expert Advice":
+    elif selected == "Expert Advice":
         expert_advice()
-    elif feature == "Maximize Your Crop Yields":
+    elif selected == "Maximize Yields":
         maximize_yields()
-    elif feature == "Best Product Deals":
+    elif selected == "Best Deals":
         best_deals()
-    elif feature == "Sell at Your Price":
+    elif selected == "Sell Produce":
         sell_produce()
+    
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Footer with links
     st.markdown("""
@@ -108,7 +153,7 @@ def call_openai(messages):
         st.error(f"An error occurred: {str(e)}")
 
 def diagnose_crop():
-    st.header("Diagnose Your Sick Crop")
+    st.markdown("<h2 class='feature-header'>Diagnose Your Sick Crop</h2>", unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Upload an image of your crop", type=["jpg", "png", "jpeg"])
     
     if uploaded_file is not None:
@@ -140,7 +185,7 @@ def diagnose_crop():
             st.error(f"An error occurred while processing the image: {str(e)}")
 
 def find_treatment():
-    st.header("Find the Right Treatment")
+    st.markdown("<h2 class='feature-header'>Find the Right Treatment</h2>", unsafe_allow_html=True)
     crop_type = st.selectbox("Select your crop type", ["Wheat", "Rice", "Corn", "Soybean", "Tomato", "Potato", "Cotton", "Barley"])
     issue = st.text_input("Describe the issue with your crop")
     region = st.selectbox("Select your region", ["North India", "South India", "East India", "West India", "Central India", "Northeast India"])
@@ -156,7 +201,7 @@ def find_treatment():
         st.write(response)
 
 def expert_advice():
-    st.header("Expert Advice")
+    st.markdown("<h2 class='feature-header'>Expert Advice</h2>", unsafe_allow_html=True)
     question_type = st.selectbox("Select a topic", [
         "Pest Management",
         "Soil Health",
@@ -183,7 +228,7 @@ def expert_advice():
         st.write(response)
 
 def maximize_yields():
-    st.header("Maximize Your Crop Yields")
+    st.markdown("<h2 class='feature-header'>Maximize Your Crop Yields</h2>", unsafe_allow_html=True)
     crop_type = st.selectbox("Select your crop type", ["Wheat", "Rice", "Corn", "Soybean", "Tomato", "Potato", "Cotton", "Barley"])
     soil_type = st.selectbox("Select your soil type", ["Alluvial", "Black", "Red", "Laterite", "Desert"])
     climate = st.selectbox("Select your climate", ["Tropical", "Subtropical", "Arid", "Semi-arid", "Temperate"])
@@ -199,7 +244,7 @@ def maximize_yields():
         st.write(response)
 
 def best_deals():
-    st.header("Best Product Deals")
+    st.markdown("<h2 class='feature-header'>Best Product Deals</h2>", unsafe_allow_html=True)
     product_type = st.selectbox("What are you looking for?", ["Fertilizers", "Seeds", "Herbicides", "Pesticides", "Farm Equipment"])
     region = st.selectbox("Select your region", ["North India", "South India", "East India", "West India", "Central India", "Northeast India"])
 
@@ -212,7 +257,7 @@ def best_deals():
         st.write(response)
 
 def sell_produce():
-    st.header("Sell at Your Price")
+    st.markdown("<h2 class='feature-header'>Sell at Your Price</h2>", unsafe_allow_html=True)
     produce_type = st.selectbox("Select your produce", ["Tomatoes", "Apples", "Lettuce", "Carrots", "Potatoes", "Onions", "Wheat", "Rice", "Cotton"])
     quality = st.slider("Rate the quality of your produce", 1, 5, 3)
     quantity = st.number_input("Enter the quantity (in kg)", min_value=1)
