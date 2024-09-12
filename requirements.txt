@@ -2,3 +2,4 @@ streamlit
 pillow
 python-dotenv
 openai
+streamlit-option-menu==1.0.0
