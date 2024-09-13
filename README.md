@@ -3,7 +3,7 @@
 # AgroSmart
 
 [![Try AgroSmart](https://img.shields.io/badge/Try-AgroSmart-brightgreen?style=for-the-badge&logo=streamlit)](https://agrosmarts.streamlit.app/)
-[![Related Repo: VedDarpan](https://img.shields.io/badge/Related%20Repo-VedDarpan-orange?style=for-the-badge&logo=github)](https://github.com/theshivam7/AgroSmart)
+[![Related Repo: VedDarpan](https://img.shields.io/badge/Related%20Repo-VedDarpan-orange?style=for-the-badge&logo=github)](https://github.com/theshivam7/VedDarpan)
 
 
 **Open-source AI Plant detection that provides fast and accurate response.**
