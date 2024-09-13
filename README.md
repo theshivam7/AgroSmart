@@ -1,4 +1,15 @@
-## AgroSmart
+<div align="center">
+
+# AgroSmart
+
+[![Try AgroSmart](https://img.shields.io/badge/Try-AgroSmart-brightgreen?style=for-the-badge&logo=streamlit)](https://agrosmarts.streamlit.app/)
+[![Related Repo: VedDarpan](https://img.shields.io/badge/Related%20Repo-VedDarpan-orange?style=for-the-badge&logo=github)](https://github.com/theshivam7/AgroSmart)
+
+
+**Open-source AI Plant detection that provides fast and accurate response.**
+</div>
+
+## Overview
 
 AgroSmart is a **free and user-friendly application** designed to help farmers in India. It offers tools to diagnose crop diseases, find effective treatments, receive expert advice, and maximize crop yields. AgroSmart provides tailored recommendations to enhance productivity and profitability for Indian farmers.
 
@@ -46,7 +57,7 @@ Use a virtual environment to manage dependencies. Create one by running:
 python3 -m venv venv
 ```
 
-Activate the virtual environment:
+#### Step 4: Activate the virtual environment:
 - On Windows:
   ```bash
   venv\Scripts\activate
@@ -56,14 +67,6 @@ Activate the virtual environment:
   source venv/bin/activate
   ```
 
-#### Step 4: Install the Required Dependencies
-
-Install the dependencies listed in the `requirements.txt` file:
-
-```bash
-pip install -r requirements.txt
-```
-
 #### Step 5: Set Up Environment Variables
 
 Create a `.env` file in the root directory of the project and add your OpenAI API key:
@@ -72,7 +75,15 @@ Create a `.env` file in the root directory of the project and add your OpenAI AP
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-#### Step 6: Run the Application
+#### Step 6: Install the Required Dependencies
+
+Install the dependencies listed in the `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Step 7: Run the Application
 
 Start the Streamlit application:
 
@@ -80,8 +91,25 @@ Start the Streamlit application:
 streamlit run app.py
 ```
 
-The application will open in your default web browser at `http://localhost:8501`.
+## 👨‍💻 About the Developer
 
-### Contact
+I'm [**Shivam Sharma**](https://www.linkedin.com/in/theshivam7/), an undergrad at IIT Madras passionate about AI, ML, and app development.
 
-Created by [Shivam Sharma](https://www.linkedin.com/in/theshivam7/). Feel free to connect on LinkedIn for more projects and collaborations.
+
+🌐 Connect with me
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/theshivam7/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://www.github.com/theshivam7/)
+
+
+## 🤝 Contributors
+
+We welcome contributions! Feel free to submit pull requests or open issues.
+
+---
+
+<div align="center">
+  
+[![Made with ❤️ by Shivam](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-Shivam-red?style=for-the-badge)](https://github.com/theshivam7)
+
+</div>
